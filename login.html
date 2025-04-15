@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        header {
+            height: 10vh;
+            width: 100vw;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+        .logo img{
+            height: 60px;
+            width: 150px;    
+        }
+
+        
+        main {
+            display: flex;
+            justify-content: center;
+            height: 650px;
+
+        }
+
+        .loginlogo img {
+            width: 150px;
+            margin: 0 0 0 410px;
+            height: 60px;
+        }
+
+        .loginmain {
+
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            width: 27vw;
+            height: 550px;
+            border: 2px solid black;
+
+        }
+        
+        .line {
+            border-bottom: 1px solid rgb(109, 107, 107);
+            margin: 0 5px 50px 5px;
+            width: 350px;
+        }
+
+
+        #username {
+            margin: 5px 0 20px 0;
+            padding: 0 5px;
+            height: 30px;
+            border-radius: 10px;
+            /* font-size: large; */
+            width: 25vw;
+            font-weight: normal;
+        }
+
+        #password {
+            margin: 5px 0 20px 0;
+            padding: 0 5px;
+            height: 30px;
+            border-radius: 10px;
+            width: 25vw;
+            font-weight: normal;
+        }
+
+        .name{
+            font-weight: normal;
+            font-size: 25px;
+        }
+
+        #forgotpass{
+            color: rgb(42, 105, 134);
+            font-size: large;
+            text-decoration: none;
+            margin-bottom: 25px;
+        }
+        #signinbutton{
+            padding: 7px 130px;
+            font-size: 16px;
+            border-radius: 15px;
+            background-color:#FFD500;
+        }
+        .signinbut{
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+
+        }
+        #signinname {
+            margin: 40px 0;
+            font-size: xx-large;
+        }
+        #signinname h2 {
+            font-weight: normal;
+        }
+        .checkbox{
+            margin-top: 50px;
+        }
+        #orpara{
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+        #details{
+            display: flex;
+            justify-content: right;
+            margin: 10px;
+            color: rgb(42, 105, 134);
+            font-size: large;
+            text-decoration: none;
+        }
+        #newacc{
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+            
+        }
+        .footer{
+            height: 200px;
+            width: 100vw;
+            background-color: black;
+           
+        
+        }
+        #createnewacc{
+            text-decoration: none;
+            color: rgb(42, 105, 134);
+            font-size: large;
+
+        }
+
+        .bottom {
+            height: 15vh;
+            width: 100vw;
+            background-color: #232f3e ;
+            color: white;
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            align-items: center;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            height: 5vh;
+            width: 100vw;
+            background-color: #131A22;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        
+            <div class="logo">
+                <img src="/image/amazonlogowhite.jpg" alt="Amazon logo">
+            </div>
+            
+    </header>
+    <main>
+        
+        <div class="loginmain">
+            <div class="form">
+                <div id="signinname">
+                    <h2>Sign in</h2>
+                </div>
+                
+                <!-- Add error message display -->
+                <div id="error-message" style="color: red; margin-bottom: 10px; text-align: center;">
+                    <script>
+                        // Get URL parameters
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const error = urlParams.get('error');
+                        const success = urlParams.get('success');
+                        
+                        // Display appropriate message
+                        if (error) {
+                            let message = '';
+                            switch(error) {
+                                case 'invalid_password':
+                                    message = 'Invalid password. Please try again.';
+                                    break;
+                                case 'user_not_found':
+                                    message = 'User not found. Please check your username.';
+                                    break;
+                                case 'missing_fields':
+                                    message = 'Please fill in all fields.';
+                                    break;
+                                default:
+                                    message = 'An error occurred. Please try again.';
+                            }
+                            document.getElementById('error-message').textContent = message;
+                        } else if (success === 'account_created') {
+                            document.getElementById('error-message').style.color = 'green';
+                            document.getElementById('error-message').textContent = 'Account created successfully! Please login.';
+                        }
+                    </script>
+                </div>
+
+                <form action="/login.php" method="POST">
+                    <p class="name">Username</p>
+                    <div id="usern">
+                        <input size="40" type="text" name="username" id="username" placeholder="Email or Mobile" required>
+                    </div>
+                    <p class="name">Password</p>
+                    
+                    <div id="pass">
+                        <input size="40" type="password" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <a href="forgotpassword" id="forgotpass">Forgot password</a>
+                    <div class="checkbox">
+                        <input type="checkbox">  Keep me Signed in.
+                    </div>
+                    <div class="signinbut">
+                        <button id="signinbutton" type="submit" value="login">Sign in </button>
+                    </div>
+                    <p id="orpara">OR</p>
+                    <div id="newacc">
+                        <a href="http://localhost/createnewaccount.html" id="createnewacc">Create new account</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="bottom">
+            <div class="condition">Conditions</div>
+            <div class="privacy">Privacy Notice</div>
+            <div class="help">Help</div>
+        </div>
+        <div class="copyright">
+            © 1996-2025, Amazon.com, Inc. or its affiliates
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
