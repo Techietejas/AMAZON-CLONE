@@ -14,7 +14,7 @@
         header {
             height: 10vh;
             width: 100vw;
-            background-color: white;
+            background-color: rgb(152, 30, 30);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -124,7 +124,7 @@
     <header>
         
         <div class="logo">
-          <img src="/image/amazonlogowhite.jpg" alt="Amazon logo">
+          <img src="image/amazonlogowhite.jpg" alt="Amazon logo">
         </div>
         
    
@@ -149,6 +149,15 @@
                                 case 'db_error':
                                     message = 'Error creating account. Please try again.';
                                     break;
+                                case 'db_prepare':
+                                    message = 'Database error. Please try again later.';
+                                    break;
+                                case 'duplicate_user':
+                                    message = 'Username or mobile number already exists. Please use a different one.';
+                                    break;
+                                case 'invalid_mobile':
+                                    message = 'Invalid mobile number. It should be exactly 10 digits.';
+                                    break;
                                 case 'missing_fields':
                                     message = 'Please fill in all fields.';
                                     break;
@@ -160,11 +169,10 @@
                     </script>
                 </div>
 
-                <form action="/create_account.php" method="POST">
+                <form action="create_account.php" method="POST" onsubmit="console.log('Form submitted')">
                     <p class="name">Enter Mobile Number</p>
-                    <div id="mobileno">
-                        <input size="40" type="tel" name="mobilenumber" id="mobileno" pattern="[0-9]{10}" title="10-digit mobile number"    required>
-
+                    <div class="mobileno-container">
+                        <input size="40" type="tel" name="mobilenumber" id="mobileno" pattern="[0-9]{10}" title="10-digit mobile number" required>
                     </div>
                     <p class="name"> Enter Username</p>
                     <div id="usern">
@@ -197,6 +205,17 @@
         </div>
     </footer>
 
+    <script>
+        // Debug form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            console.log('Form submission event triggered');
+            // Log data that will be sent
+            const formData = new FormData(this);
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+        });
+    </script>
 </body>
 
 </html>
